@@ -2,6 +2,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../constants.dart';
+
 final editorSettingsProvider =
     StateNotifierProvider<EditorSettingsProvider, EditorSettings>(
         (_) => EditorSettingsProvider());
@@ -13,12 +15,14 @@ class EditorSettings {
   final bool fixNumKeyboard;
   final bool leftHand;
   final List<String> defaultPayment;
+  final int oldAmenityDays;
 
   const EditorSettings({
     this.preferContact = false,
     this.fixNumKeyboard = false,
     this.leftHand = false,
     this.defaultPayment = kDefaultPayment,
+    this.oldAmenityDays = kDefaultOldAmenityDays,
   });
 
   EditorSettings copyWith({
@@ -26,12 +30,14 @@ class EditorSettings {
     bool? fixNumKeyboard,
     bool? leftHand,
     List<String>? defaultPayment,
+    int? oldAmenityDays,
   }) {
     return EditorSettings(
       preferContact: preferContact ?? this.preferContact,
       fixNumKeyboard: fixNumKeyboard ?? this.fixNumKeyboard,
       leftHand: leftHand ?? this.leftHand,
       defaultPayment: defaultPayment ?? this.defaultPayment,
+      oldAmenityDays: oldAmenityDays ?? this.oldAmenityDays,
     );
   }
 
@@ -44,6 +50,7 @@ class EditorSettings {
           ? kDefaultPayment
           : data[2].split(';').map((s) => s.trim()).toList(),
       leftHand: data.length >= 4 && data[3] == '1',
+      oldAmenityDays: (data.length >= 5) ? int.tryParse(data[4]) ?? kDefaultOldAmenityDays : kDefaultOldAmenityDays,
     );
   }
 
@@ -53,6 +60,7 @@ class EditorSettings {
       fixNumKeyboard ? '1' : '0',
       defaultPayment.join(';'),
       leftHand ? '1' : '0',
+      oldAmenityDays.toString(),
     ];
   }
 
@@ -98,5 +106,10 @@ class EditorSettingsProvider extends StateNotifier<EditorSettings> {
       state = state.copyWith(defaultPayment: values);
       store();
     }
+  }
+
+  setOldAmenityDays(int value) {
+    state = state.copyWith(oldAmenityDays: value);
+    store();
   }
 }

@@ -5,6 +5,7 @@ import 'package:every_door/helpers/equirectangular.dart';
 import 'package:every_door/helpers/good_tags.dart';
 import 'package:every_door/helpers/payment_tags.dart';
 import 'package:every_door/models/osm_element.dart';
+import 'package:every_door/providers/editor_settings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:intl/intl.dart';
@@ -172,7 +173,8 @@ class OsmChange extends ChangeNotifier implements Comparable {
       .inDays;
 
   // Check date management.
-  bool get isOld => calculateAge(this[kCheckedKey]) >= kOldAmenityDays;
+  final editorSettings = ref.watch(editorSettingsProvider);
+  bool get isOld => calculateAge(this[kCheckedKey]) >= editorSettingsProvider.;
   bool get wasOld =>
       !isNew && calculateAge(element?.tags[kCheckedKey]) >= kOldAmenityDays;
   bool get isCheckedToday => calculateAge(this[kCheckedKey]) <= 1;

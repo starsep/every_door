@@ -435,6 +435,20 @@
   "@settingsAbout": {
     "description": "Title for the About section in settings."
   },
+  "settingsDaysOldTitle": "POIs is considered unchecked after",
+  "@settingsDaysOldTitle": {
+    "description": "Title for the setting how old a POI must be to be considered unconfirmed."
+  },
+  "settingsDaysOldValue": "{count} days",
+  "@settingsDaysOldValue": {
+    "description": "Formatted number of days",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "14"
+      }
+    }
+  },
   "aboutViewLog": "System log",
   "@aboutViewLog": {
     "description": "Button title to open the log view page."

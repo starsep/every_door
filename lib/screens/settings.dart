@@ -200,6 +200,85 @@ class SettingsPage extends ConsumerWidget {
                   }
                 },
               ),
+              SettingsTile(
+                title: Text(loc.settingsDaysOldTitle),
+                value: Text(loc.settingsDaysOldValue(14)),
+                trailing: Icon(Icons.navigate_next),
+                onPressed: (context) async {
+                  final locale = Localizations.localeOf(context);
+                  final navigator = Navigator.of(context);
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Form(
+                            // key: _keyDialogForm,
+                            child: Column(
+                              children: <Widget>[
+                                TextFormField(
+                                  decoration: const InputDecoration(
+                                    icon: Icon(Icons.ac_unit),
+                                  ),
+                                  maxLength: 8,
+                                  textAlign: TextAlign.center,
+                                  onSaved: (val) {
+                                    // titleController.text = val;
+                                    // setState(() {});
+                                  },
+                                  // autovalidateMode: true,
+                                  validator: (value) {
+                                    // if (value.isEmpty) {
+                                    //   return 'Enter Title Name';
+                                    // }
+
+                                    return null;
+                                  },
+                                )
+                              ],
+                            ),
+                          ),
+                          actions: <Widget>[
+                            FlatButton(
+                              onPressed: () {
+                                // if (_keyDialogForm.currentState.validate()) {
+                                //   _keyDialogForm.currentState.save();
+                                //
+                                //   Navigator.pop(context);
+                                // }
+                              },
+                              child: Text('Save'),
+                              color: Colors.blue,
+                            ),
+                            FlatButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text('Cancel')),
+                          ],
+                        );
+                    });
+                  /*final combo = await ref
+                      .read(presetProvider)
+                      .getField('payment_multi', locale);
+                  if (combo is ComboPresetField) {
+                    combo.options.removeWhere(
+                            (element) => kNotCards.contains(element.value));
+                  }
+                  final List<String>? newValues = await navigator.push(
+                    MaterialPageRoute(
+                      builder: (context) => ComboChooserPage(
+                        combo as ComboPresetField,
+                        editorSettings.defaultPayment,
+                      ),
+                    ),
+                  );
+                  if (newValues != null && newValues.isNotEmpty) {
+                    ref
+                        .read(editorSettingsProvider.notifier)
+                        .setDefaultPayment(newValues);
+                  }*/
+                },
+              )
             ],
           ),
           if (defaultTargetPlatform == TargetPlatform.android)
